@@ -5,6 +5,7 @@ s3-region: "us-west-2"
 s3-endpoint: s3-us-west-2.amazonaws.com
 s3-bucket-version: hello-node-releases
 s3-bucket-releases: hello-node-releases
+s3-bucket-docs: hello-node-docs
 s3-bucket-release-candidates: hello-node-release-candidates
 cf-integration-api: "https://api.run.pivotal.io"
 cf-integration-org: "hello-node"
@@ -18,3 +19,5 @@ cf-production-space: "production"
 cf-production-host: "hello-node-overinterested-pinochle"
 cf-production-domain: "cfapps.io"
 cf-production-skip-cert: false
+tracker-url: https://www.pivotaltracker.com
+tracker-project-id: "2088013"

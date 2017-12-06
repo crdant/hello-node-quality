@@ -47,15 +47,36 @@ jobs:
           CF_HOST: ((cf-integration-host))
           CF_DOMAIN: ((cf-integration-domain))
 
-  - name: ship-it
-    serial_groups: [ version ]
+  - name: scan-and-document
+    serial: true
     plan:
       - get: candidate-release
+        trigger: true
         passed: [ integration-test ]
       - get: source
         passed: [ integration-test ]
       - get: node-modules
         passed: [ integration-test ]
+      - get: version
+        passed: [ integration-test ]
+      - task: compliance-docs
+        file: source/ci/tasks/compliance-docs.yml
+      - put: compliance-docs
+        params:
+          - file: documents/((application))-compliance-*.tgz }
+      - put: sonar-runner
+        params:
+          project_path: source
+
+  - name: ship-it
+    serial_groups: [ version ]
+    plan:
+      - get: candidate-release
+        passed: [ scan-and-document ]
+      - get: source
+        passed: [ scan-and-document ]
+      - get: node-modules
+        passed: [ scan-and-document ]
       - get: version
         params: { bump: final }
       - task: prepare
@@ -144,7 +165,6 @@ jobs:
           current: ((application))-venerable
           new: ((application))
 
-
 resources:
   - name: source
     type: git
@@ -172,11 +192,29 @@ resources:
       endpoint: ((s3-endpoint))
       sse-kms-key-id: ((s3-sse-kms-key-id))
 
+  - name: deliver-story
+    type: tracker
+    source:
+      token: ((tracker-api-token))
+      project_id: ((tracker-project-id))
+      tracker_url: ((tracker-url))
+
   - name: candidate-release
     type: s3
     source:
       bucket: ((s3-bucket-release-candidates))
       regexp: ((application))-(.*).tgz
+      access_key_id: ((aws-access-key-id))
+      secret_access_key: ((aws-secret-access-key))
+      region_name: ((s3-region))
+      endpoint: ((s3-endpoint))
+      sse-kms-key-id: ((s3-sse-kms-key-id))
+
+  - name: compliance-docs
+    type: s3
+    source:
+      bucket: ((s3-bucket-docs))
+      regexp: ((application))-compliance-(.*).tgz
       access_key_id: ((aws-access-key-id))
       secret_access_key: ((aws-secret-access-key))
       region_name: ((s3-region))
@@ -197,6 +235,14 @@ resources:
     type: cf-route
     source:
       <<: *cf-integration-source
+
+  - name: code-analysis
+    type: sonar-runner
+    source:
+      host_url: https://sonarqube.example.com/
+      login: 63a23c366e208d1d3fca72672afb814ac87ccd12
+      project_key: io.crdant.hello-node
+      branch: master
 
   - name: final-release
     type: s3
@@ -254,3 +300,9 @@ resource_types:
     type: docker-image
     source:
       repository: crdant/cf-delete-resource
+
+  - name: sonar-runner
+    type: docker-image
+    source:
+      repository: cathive/concourse-sonarqube-resource
+      tag: latest # For reproducible builds use a specific tag and don't rely on "latest".
