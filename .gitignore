@@ -1,6 +1,10 @@
 # credentials file
 credentials.yml
 
+# compliance documentation artifacts
+opencontrols/*
+exports/*
+
 # Logs
 logs
 *.log
