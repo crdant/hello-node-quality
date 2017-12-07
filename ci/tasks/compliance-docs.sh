@@ -51,6 +51,6 @@ compliance-masonry get
 compliance-masonry docs gitbook LATO
 
 cd ${inputDir}/exports
-tar -czf ../$outputDir/$artifactName *
+tar -czf $outputDir/$artifactName *
 
 ls ${outputDir}
