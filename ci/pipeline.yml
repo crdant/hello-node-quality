@@ -63,10 +63,14 @@ jobs:
         file: source/ci/tasks/compliance-docs.yml
       - put: compliance-docs
         params:
-          - file: documents/((application))-compliance-*.tgz }
-      - put: sonar-runner
+          file: documents/((application))-compliance-*.tgz
+      - put: code-analysis
         params:
           project_path: source
+      - put: deliver-story
+        params:
+          repos:
+          - source
 
   - name: ship-it
     serial_groups: [ version ]
@@ -228,7 +232,7 @@ resources:
       username: ((cf-integration-username))
       password: ((cf-integration-password))
       organization: ((cf-integration-org))
-      space: ((cf-integration-space))
+      space: "((cf-integration-space))"
       skip_cert_check: ((cf-integration-skip-cert))
 
   - name: cf-integration-route
@@ -262,7 +266,7 @@ resources:
       username: ((cf-production-username))
       password: ((cf-production-password))
       organization: ((cf-production-org))
-      space: ((cf-production-space))
+      space: "((cf-production-space))"
       skip_cert_check: ((cf-production-skip-cert))
 
   - name: cf-production-route
