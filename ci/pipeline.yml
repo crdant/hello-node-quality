@@ -67,6 +67,8 @@ jobs:
       - put: code-analysis
         params:
           project_path: source
+          project_key: ((sonarqube-project-id))
+          sources: .
       - put: deliver-story
         params:
           repos:
@@ -245,7 +247,7 @@ resources:
     source:
       host_url: ((sonarqube-url))
       login: ((sonarqube-key))
-      project_key: ((sonarqube-project-id))
+      organization: ((sonarqube-organization))
       branch: master
 
   - name: final-release
@@ -308,5 +310,5 @@ resource_types:
   - name: sonar-runner
     type: docker-image
     source:
-      repository: cathive/concourse-sonarqube-resource
+      repository: crdant/concourse-sonarqube-resource
       tag: latest # For reproducible builds use a specific tag and don't rely on "latest".

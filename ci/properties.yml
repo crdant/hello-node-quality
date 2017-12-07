@@ -21,5 +21,6 @@ cf-production-domain: "cfapps.io"
 cf-production-skip-cert: false
 sonarqube-url: https://sonarcloud.io
 sonarqube-project-id: io.crdant.hello-node
+sonarqube-organization: crdant-github
 tracker-url: https://www.pivotaltracker.com
 tracker-project-id: "2088013"
