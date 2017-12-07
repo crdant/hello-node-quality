@@ -243,9 +243,9 @@ resources:
   - name: code-analysis
     type: sonar-runner
     source:
-      host_url: https://sonarqube.example.com/
-      login: 63a23c366e208d1d3fca72672afb814ac87ccd12
-      project_key: io.crdant.hello-node
+      host_url: ((sonarqube-url))
+      login: ((sonarqube-key))
+      project_key: ((sonarqube-project-id))
       branch: master
 
   - name: final-release
