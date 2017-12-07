@@ -20,6 +20,6 @@ cf-production-host: "hello-node-parity-galactic"
 cf-production-domain: "cfapps.io"
 cf-production-skip-cert: false
 sonarqube-url: https://sonarqube.io
-sonarqube-project-id: io.crdant.((application))
+sonarqube-project-id: io.crdant.hello-node
 tracker-url: https://www.pivotaltracker.com
 tracker-project-id: "2088013"
