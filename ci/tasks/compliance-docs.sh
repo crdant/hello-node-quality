@@ -5,11 +5,11 @@ inputDir=  outputDir=  versionFile= artifactId=  packaging=
 while [ $# -gt 0 ]; do
   case $1 in
     -i | --input-dir )
-      inputDir=$2
+      inputDir=${PWD}/$2
       shift
       ;;
     -o | --output-dir )
-      outputDir=$2
+      outputDir=${PWD}/$2
       shift
       ;;
     -a | --artifactId )
@@ -17,7 +17,7 @@ while [ $# -gt 0 ]; do
       shift
       ;;
     -v | --version-file )
-      versionFile=$2
+      versionFile=${PWD}/$2
       shift
       ;;
     -p | --packaging )
@@ -47,10 +47,10 @@ version=`cat $versionFile`
 artifactName="${artifactId}-compliance-${version}.${packaging}"
 
 cd ${inputDir}
-
 compliance-masonry get
 compliance-masonry docs gitbook LATO
-tar -C exports -czf ../$outputDir/$artifactName *
 
+cd ${inputDir}/exports
+tar -czf ../$outputDir/$artifactName *
 
 ls ${outputDir}
