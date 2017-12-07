@@ -8,15 +8,15 @@ s3-bucket-releases: hello-node-releases
 s3-bucket-docs: hello-node-docs
 s3-bucket-release-candidates: hello-node-release-candidates
 cf-integration-api: "https://api.run.pivotal.io"
-cf-integration-org: "hello-node"
-cf-integration-space: "integration"
-cf-integration-host: "hello-node-overinterested-pinochle-test"
+cf-integration-org: "Northeast / Canada"
+cf-integration-space: "crdant-int"
+cf-integration-host: "hello-node-chaps-quarto"
 cf-integration-domain: "cfapps.io"
 cf-integration-skip-cert: false
 cf-production-api: "https://api.run.pivotal.io"
-cf-production-org: "hello-node"
-cf-production-space: "production"
-cf-production-host: "hello-node-overinterested-pinochle"
+cf-production-org: "Northeast / Canada"
+cf-production-space: "crdant-prod"
+cf-production-host: "hello-node-parity-galactic"
 cf-production-domain: "cfapps.io"
 cf-production-skip-cert: false
 tracker-url: https://www.pivotaltracker.com
