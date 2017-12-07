@@ -19,5 +19,6 @@ run:
     --input-dir, source,
     --output-dir, documents,
     --artifactId, hello-node,
+    --version-file, version/number,
     --packaging, tgz
   ]

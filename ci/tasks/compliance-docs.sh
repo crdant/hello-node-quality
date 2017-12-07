@@ -16,6 +16,10 @@ while [ $# -gt 0 ]; do
       artifactId=$2
       shift
       ;;
+    -v | --version-file )
+      versionFile=$2
+      shift
+      ;;
     -p | --packaging )
       packaging=$2
       shift
@@ -39,7 +43,10 @@ if [ ! -d "$outputDir" ]; then
   exit 1
 fi
 
+version=`cat $versionFile`
 artifactName="${artifactId}-compliance-${version}.${packaging}"
+
+cd ${inputDir}
 
 compliance-masonry get
 compliance-masonry docs gitbook LATO
