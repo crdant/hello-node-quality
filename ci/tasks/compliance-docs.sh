@@ -46,10 +46,11 @@ fi
 version=`cat $versionFile`
 artifactName="${artifactId}-compliance-${version}.${packaging}"
 
-pushd ${inputDir}
-  compliance-masonry get
-  compliance-masonry docs gitbook LATO
-  tar -C exports -czf ../$outputDir/$artifactName *
-popd
+cd ${inputDir}
+
+compliance-masonry get
+compliance-masonry docs gitbook LATO
+tar -C exports -czf ../$outputDir/$artifactName *
+
 
 ls ${outputDir}
