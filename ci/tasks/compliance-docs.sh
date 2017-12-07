@@ -1,6 +1,6 @@
 #!/bin/sh
 
-inputDir=  outputDir=  artifactId=  packaging=
+inputDir=  outputDir=  versionFile= artifactId=  packaging=
 
 while [ $# -gt 0 ]; do
   case $1 in
@@ -46,11 +46,10 @@ fi
 version=`cat $versionFile`
 artifactName="${artifactId}-compliance-${version}.${packaging}"
 
-cd ${inputDir}
-
-compliance-masonry get
-compliance-masonry docs gitbook LATO
-
-tar -C ${inputDir}/exports -czf ../$outputDir/$artifactName *
+pushd ${inputDir}
+  compliance-masonry get
+  compliance-masonry docs gitbook LATO
+  tar -C exports -czf ../$outputDir/$artifactName *
+popd
 
 ls ${outputDir}
