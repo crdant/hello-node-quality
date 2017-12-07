@@ -18,7 +18,7 @@ axios.get(url, { httpsAgent: agent })
     console.log("Got response: " + response.status);
     console.log("Got data: " + response.data);
 
-    if ( response.data != "Hello Quality! We are compliant.\n") {
+    if ( response.data != "Hello Quality! I'm compliant.\n") {
       process.exit(-1);
     }
   })
